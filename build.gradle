@@ -1,0 +1,89 @@
+plugins {
+    id "org.springframework.boot" version "2.1.6.RELEASE"
+    id "io.qameta.allure" version "2.5"
+    id "com.github.opengl-BOBO.assertjGen2" version "2.0.0"
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+//apply plugin: "com.github.opengl-BOBO.assertjGen2"
+
+repositories {
+    mavenCentral()
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+assertjGen {
+    packages = ['com.example.api.models.user']
+    cleanTargetDir = true
+    generateAssertionsForAllFields = true
+//    generateBddAssertions = false
+//    generateSoftAssertions = false
+//    generateJUnitSoftAssertions = false
+//    generateAssertionsInPackage = ['com.example.api.asserts.user']
+//    entryPointClassPackage= ['com.example.api.asserts.user']
+    generateAssertionsInPackage = 'user'
+    targetDir = 'src/main/java/com/example/api/asserts'
+}
+
+allure {
+    autoconfigure = true
+    version = '2.7.0'
+    configuration = 'compile'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-logging"
+        exclude module: "logback-classic"
+    }
+    compile('org.springframework.boot:spring-boot-starter-test') {
+        exclude module: "logback-classic"
+    }
+    compile('org.springframework.boot:spring-boot-starter-data-jpa') {
+        exclude module: "logback-classic"
+    }
+
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.199'
+    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+    compile group: 'io.rest-assured', name: 'rest-assured', version: '3.1.1'
+    compile group: 'io.github.sskorol', name: 'test-data-supplier', version: '1.7.0'
+    compile group: 'io.qameta.allure', name: 'allure-rest-assured', version: '2.7.0'
+    compile group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+}
+
+tasks.withType(Test) {
+    testTask ->
+        testTask.testLogging.showStackTraces = true
+        testTask.testLogging.exceptionFormat = 'full'
+        testTask.testLogging.showStandardStreams = true
+        testTask.outputs.upToDateWhen { false }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.8'
+}
+
+[compileJava, compileTestJava]*.options.collect { options -> options.encoding = 'UTF-8' }
+
+tasks.withType(Test) {
+    testTask ->
+        testTask.outputs.upToDateWhen { false }
+        testTask.testLogging.showStackTraces = true
+        testTask.testLogging.exceptionFormat = 'full'
+        testTask.testLogging.showStandardStreams = true
+        testTask.systemProperties(
+                'env': System.properties['env']
+        )
+}
+
+bootRun {
+    main = 'com.example.Application'
+}

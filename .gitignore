@@ -1,0 +1,14 @@
+**/.idea/
+**/build/
+**/out/
+.gradle/
+**/.tmp-volume-*/
+**/.allure/
+**/allure-results/
+/*.iml
+allServices/debug.log
+avia/debug.log
+bookNtrip/debug.log
+b2b/debug.log
+avia_v3/debug.log
+*.iml
