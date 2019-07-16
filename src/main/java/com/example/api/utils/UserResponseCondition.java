@@ -30,5 +30,4 @@ public final class UserResponseCondition {
         return user -> user.getAge() <= maxAge;
     }
 
-
 }

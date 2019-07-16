@@ -1,6 +1,8 @@
 package com.example.models;
 
 import javax.persistence.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Entity
 @Table(name = "usr")
@@ -68,6 +70,7 @@ public class User {
         this.passport = passport;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -77,6 +80,41 @@ public class User {
                 ", email='" + email + '\'' +
                 ", passport='" + passport + '\'' +
                 '}';
+    }
+
+
+    public static class Builder {
+        private User user = new User();
+
+        public Builder withId(Long id) {
+            user.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            user.name = name;
+            return this;
+        }
+
+        public Builder withAge(int age) {
+            user.age = age;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            user.email = email;
+            return this;
+        }
+
+        public Builder withPassport(String passport) {
+            user.passport = passport;
+            return this;
+        }
+
+        public User build() {
+            return user;
+        }
+
     }
 }
 
