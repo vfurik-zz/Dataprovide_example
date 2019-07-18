@@ -1,8 +1,11 @@
 package com.example;
 
 import com.example.api.utils.XlsHelper;
+import com.example.data.UserData;
 import com.example.models.User;
 import io.github.sskorol.core.DataSupplier;
+import io.github.sskorol.data.CsvReader;
+import io.github.sskorol.data.TestDataReader;
 import io.vavr.Tuple;
 import io.vavr.Tuple3;
 import one.util.streamex.StreamEx;
@@ -40,15 +43,15 @@ public class DbMockTest {
      * Example data supplier for List with transpose
      */
 
-    @DataSupplier(transpose = true)
+    @DataSupplier(transpose = false)
     public List<User> getTransposeData() {
         return XlsHelper.helper.getUsers();
     }
 
     @Test(dataProvider = "getTransposeData")
-    public void testTransposeData(final User... user) {
+    public void testTransposeData(final User user) {
         Logger.getGlobal().log(Level.INFO, "Test is started");
-        System.out.println(Arrays.stream(user).count());
+        System.out.println(user);
     }
 
     /**
@@ -108,6 +111,21 @@ public class DbMockTest {
     @Test(dataProvider = "getStreamExData")
     public void testGetStreamExData(final User user) {
         System.out.println(user);
+    }
+
+
+    /**
+     * Data provider from CSV
+     */
+
+    @DataSupplier
+    public StreamEx<UserData> getDataFromCSV(){
+        return TestDataReader.use(CsvReader.class).withTarget(UserData.class).withSource("data.csv").read();
+    }
+
+    @Test (dataProvider = "getDataFromCSV")
+    public void testGetDataFromCsv(UserData userData){
+        System.out.println(userData);
     }
 
     /**

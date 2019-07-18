@@ -21,11 +21,12 @@ public class UserTest {
         return StreamEx.of(
                 Tuple.of(new UserAction.Params().withMaxAge(35), UserResponseCondition.verifyMaxAge(35)),
                 Tuple.of(new UserAction.Params().withMinAge(22), UserResponseCondition.verifyMinAge(22)),
-                Tuple.of(new UserAction.Params().withPassport("PS23232"), UserResponseCondition.verifyPassport("PS23232")),
+                Tuple.of(new UserAction.Params().withPassport("PS23232"), UserResponseCondition.verifyPassport("PS232323232")),
                 Tuple.of(new UserAction.Params().withName("will"), UserResponseCondition.verifyName("william")),
                 Tuple.of(new UserAction.Params().withEmail("Michael89@gmail.com"), UserResponseCondition.verifyEmail("Michael89@gmail.COM"))
         ).toList();
     }
+
 
     @Test(dataProvider = "allData")
     public void getUserTest(UserAction.Params params, Predicate<UserResponse> condition) {

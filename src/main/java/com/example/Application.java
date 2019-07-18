@@ -23,7 +23,7 @@ public class Application implements CommandLineRunner {
         userRepo.save(new User("Max", 24, "max@gmail.com", "PS299081"));
         userRepo.save(new User("John", 26, "john@gmail.com", "PS299321"));
         userRepo.save(new User("William", 21, "Michael89@gmail.com", "PS23232"));
-        userRepo.save(new User("Michael", 17, "john@gmail.com", "PS299321"));
+        userRepo.save(new User("Michael", 17, "john@gmail.com", "PS249321"));
         userRepo.save(new User("Alexander", 47, "Alexander_q@gmail.com", "PS23242"));
         userRepo.save(new User("Sophia", 29, "Sophia90@gmail.com", "PS321242"));
         userRepo.save(new User("Emma", 28, "Emma91@gmail.com", "PS350142"));

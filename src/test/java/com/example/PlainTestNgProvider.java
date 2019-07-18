@@ -21,8 +21,8 @@ public class PlainTestNgProvider {
     }
 
     @Test(dataProvider = "test1")
-    public void verifyData1(String n1, Integer n2, User user) {
-        System.out.println(n1 + " " + n2 + " " + user);
+    public void verifyData1(String str, Integer in, User user) {
+        System.out.println(str + " " + in + " " + user);
     }
 
     /* *********************************************************************************************************** */
@@ -30,13 +30,14 @@ public class PlainTestNgProvider {
 
     @DataProvider(name = "test2")
     public Object[] createData() {
-        return new User[]{new User("test1", 23, "test2", "test3"),
-                new User("test11", 23, "test22", "test33")};
+        return new User[]{
+                new User("test1", 23, "test2", "test3"),
+                new User("test11", 23, "test22", "test33")
+        };
     }
 
     @Test(dataProvider = "test2")
     public void verifyData2(User user) {
-        Logger.getGlobal().log(Level.INFO, "Test started");
         System.out.println(user);
     }
 

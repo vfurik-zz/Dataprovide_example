@@ -18,6 +18,8 @@ public class User {
         this.passport = passport;
     }
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
